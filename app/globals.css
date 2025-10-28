@@ -1,0 +1,233 @@
+:root {
+  color-scheme: dark;
+  --background: radial-gradient(circle at top, #0f0f17 0%, #030307 100%);
+  --accent: #d946ef;
+  --accent-soft: rgba(217, 70, 239, 0.3);
+  --text: #f8f7ff;
+  --muted: rgba(248, 247, 255, 0.7);
+  --danger: #ff5757;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  background: var(--background);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(840px, 100%);
+  background: rgba(5, 5, 12, 0.72);
+  border: 1px solid rgba(217, 70, 239, 0.22);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 60px rgba(217, 70, 239, 0.22);
+  border-radius: 28px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.app-header {
+  padding: 2.5rem 2.75rem 1.5rem;
+  background: linear-gradient(180deg, rgba(217, 70, 239, 0.16) 0%, rgba(8, 8, 18, 0) 90%);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 1.8rem + 1.2vw, 3rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.app-header p {
+  margin: 0.6rem 0 0;
+  max-width: 38ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.story-container {
+  padding: 0 2.75rem 2.75rem;
+}
+
+.story-grid {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 1.8rem;
+}
+
+.story-line {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.7;
+  color: var(--muted);
+  transform: translateX(-12px);
+  opacity: 0;
+  animation: fadeInSlide 900ms ease forwards;
+}
+
+.story-line::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(217, 70, 239, 0.7);
+}
+
+.story-line.highlighted {
+  color: var(--text);
+  text-shadow: 0 0 14px rgba(217, 70, 239, 0.3);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.control-button {
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 70, 239, 0.4);
+  background: rgba(217, 70, 239, 0.1);
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -12px rgba(217, 70, 239, 0.6);
+  background: rgba(217, 70, 239, 0.2);
+}
+
+.control-button.secondary {
+  background: rgba(255, 87, 87, 0.12);
+  border-color: rgba(255, 87, 87, 0.4);
+}
+
+.status-indicator {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(217, 70, 239, 0.08);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.7);
+}
+
+.status-dot.idle {
+  background: rgba(248, 247, 255, 0.4);
+  box-shadow: none;
+}
+
+.status-dot.alert {
+  background: var(--danger);
+  box-shadow: 0 0 14px rgba(255, 87, 87, 0.65);
+}
+
+.timer {
+  margin-left: auto;
+  font-feature-settings: "tnum" 1;
+}
+
+.ambient-indicator {
+  margin-top: 2rem;
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: rgba(217, 70, 239, 0.08);
+  border: 1px solid rgba(217, 70, 239, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ambient-indicator svg {
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+}
+
+.ambient-indicator p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    border-radius: 22px;
+  }
+
+  .app-header,
+  .story-container {
+    padding: 2rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .control-button {
+    width: 100%;
+    text-align: center;
+  }
+}
